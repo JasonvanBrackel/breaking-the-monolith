@@ -8,6 +8,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		MoreHuman.Software.Chat.Ui\default.htm = MoreHuman.Software.Chat.Ui\default.htm
 		MoreHuman.Software.Chat.Ui\Display.asp = MoreHuman.Software.Chat.Ui\Display.asp
 		MoreHuman.Software.Chat.Ui\Message.asp = MoreHuman.Software.Chat.Ui\Message.asp
+		..\..\monolith notes = ..\..\monolith notes
 		..\README.md = ..\README.md
 	EndProjectSection
 EndProject

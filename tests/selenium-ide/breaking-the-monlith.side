@@ -63,6 +63,45 @@
       "targets": [],
       "value": ""
     }]
+  }, {
+    "id": "1d177b88-9eff-4180-b986-f61143186157",
+    "name": "When a message is sent",
+    "commands": [{
+      "id": "79c68ebb-c943-4091-bf3d-413e7e895b48",
+      "comment": "",
+      "command": "type",
+      "target": "name=username",
+      "targets": [
+        ["name=username", "name"],
+        ["css=td:nth-child(3) > input", "css:finder"],
+        ["xpath=//input[@name='username']", "xpath:attributes"],
+        ["xpath=//input", "xpath:position"]
+      ],
+      "value": "username"
+    }, {
+      "id": "31d0e9e8-4652-4039-8df0-db8cf8ec544a",
+      "comment": "",
+      "command": "type",
+      "target": "name=message",
+      "targets": [
+        ["name=message", "name"],
+        ["css=td:nth-child(4) > input:nth-child(1)", "css:finder"],
+        ["xpath=//input[@name='message']", "xpath:attributes"],
+        ["xpath=//td[4]/input", "xpath:position"]
+      ],
+      "value": "username 222222"
+    }, {
+      "id": "a6bd57c5-721b-41e6-be89-bbc2fd205b64",
+      "comment": "",
+      "command": "click",
+      "target": "css=input:nth-child(2)",
+      "targets": [
+        ["css=input:nth-child(2)", "css:finder"],
+        ["xpath=//input[@value='SEND']", "xpath:attributes"],
+        ["xpath=//input[2]", "xpath:position"]
+      ],
+      "value": ""
+    }]
   }],
   "suites": [{
     "id": "56ad5f3b-ea10-41bb-856c-ac5ae4259880",
