@@ -38,6 +38,10 @@ This document will eventually become the documentation root of this project.  Fo
     - `css=tr:nth-child(3) > td:nth-child(3)`
     - `css=tr:nth-child(3) > td:nth-child(2)`
   - Add ids to time and date
+  - Add sleeps
+  - deal with frameset
+
+### Test 2: 
     
 
 ## Thoughts on Breaking this Monolith

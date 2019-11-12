@@ -43,7 +43,7 @@ Sub global_asa(temp)
 End Sub
 
 sub create_headings()
-    Response.Write date & "<BR>" & formatdatetime(time,3)
+    Response.Write "<div id=""date"">" & date & "</div><div id=""time"">" & formatdatetime(time,3) & "</div>"
     Response.Write "<TABLE  BORDER=""1""  HEIGHT = ""80%"" WIDTH = ""100%""  CELLSPACING=""0""  CELLPADDING=""0""  BGCOLOR = ""lightblue"" > "
     Response.Write "<TR>"
     'Response.Write "<TD>"  & "&nbsp;" & "</TD>"

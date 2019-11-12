@@ -74,7 +74,6 @@ sub putinfo(username,timesaid,ip,message)
         exit sub
     end if
 
-
     Application.lock
     if Application("Tplace") => Application("Tplaces") then
         Application("Tplace")=0

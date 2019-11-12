@@ -32,9 +32,9 @@ public class SuiteTests : IDisposable
         //string host = System.Environment.GetEnvironmentVariable("test_host", EnvironmentVariableTarget.Process);
         //int port = Convert.ToInt32(System.Environment.GetEnvironmentVariable("test_port", EnvironmentVariableTarget.Process));
         string host = "localhost";
-        
-        const string mainPage = "default.htm";
         int port = 80;
+
+        const string mainPage = "default.htm";
 
         UriBuilder builder = new UriBuilder("http", host, port);
         builder.Path = mainPage;
@@ -43,21 +43,25 @@ public class SuiteTests : IDisposable
         // Act
         driver.Navigate().GoToUrl(testPath);
 
+        // Wait for stuff to reload
+        Thread.Sleep(TimeSpan.FromSeconds(5));
+
         // Assert time are date are nowish
-        var date = driver.FindElement(By.CssSelector("body")).Text;
-        var time = driver.FindElement(By.CssSelector("body")).Text;
+        driver.SwitchTo().Frame("chat_top");
+        var date = driver.FindElement(By.Id("date")).Text;
+        var time = driver.FindElement(By.Id("time")).Text;
         var dateTime = Convert.ToDateTime(date + " " + time);
         Assert.True((DateTime.Now - dateTime).TotalSeconds < 5);
 
-        // Assert message time is nowish
+        // Assert message time is nowish.
         var messageTime = Convert.ToDateTime(driver.FindElement(By.CssSelector("tr:nth-child(3) > td:nth-child(2)")).Text);
-        Assert.True((DateTime.Now - messageTime).TotalSeconds < 5);
-
+        Assert.True((DateTime.Now - messageTime).TotalSeconds < 60);
+            
         // Assert User is guest
-        Assert.Equal(driver.FindElement(By.CssSelector("tr:nth-child(3) > td:nth-child(3)")).Text, "Guest"); 
+        Assert.Equal("Guest", driver.FindElement(By.CssSelector("tr:nth-child(3) > td:nth-child(3)")).Text.Trim()); 
 
         // Assert Message is that a guest has joined 
         var messageText = driver.FindElement(By.CssSelector("tr:nth-child(3) > td:nth-child(4)")).Text;
-        Assert.StartsWith(messageText, "	New visitor from I.P.");
+        Assert.StartsWith("New visitor from I.P.", messageText);
     }
 }
