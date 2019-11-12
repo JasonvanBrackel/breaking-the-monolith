@@ -16,6 +16,7 @@ This document will eventually become the documentation root of this project.  Fo
 - Note that we have no way to identify the clock and date
 - Add folder to directory structure (MoreHuman.Software.Chat.Ui)
 - Add IIS application for site
+- Downloaded and copied the geckodriver
 ```
 ```
 - Create a new application in IIS with .NET Framework

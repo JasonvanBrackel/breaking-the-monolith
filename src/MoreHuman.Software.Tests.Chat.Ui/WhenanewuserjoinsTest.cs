@@ -8,36 +8,56 @@ using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Firefox;
 using OpenQA.Selenium.Support.UI;
 using OpenQA.Selenium.Interactions;
+using System.Security.Permissions;
 using Xunit;
-public class SuiteTests : IDisposable {
-  public IWebDriver driver {get; private set;}
-  public IDictionary<String, Object> vars {get; private set;}
-  public IJavaScriptExecutor js {get; private set;}
-  public SuiteTests()
-  {
-    driver = new FirefoxDriver();
-    js = (IJavaScriptExecutor)driver;
-    vars = new Dictionary<String, Object>();
-  }
-  public void Dispose()
-  {
-    driver.Quit();
-  }
-  [Fact]
-  public void When_a_new_user_joins() {
-    // Test name: When a new user joins
-    // Step # | name | target | value | comment
-    // 1 | open | http://localhost:8080/default.htm |  | 
-    driver.Navigate().GoToUrl("http://localhost:8080/default.htm");
-    // 2 | click | css=body |  | Click the date
-    driver.FindElement(By.CssSelector("body")).Click();
-    // 3 | click | css=body |  | Click the time
-    driver.FindElement(By.CssSelector("body")).Click();
-    // 4 | click | css=tr:nth-child(3) > td:nth-child(2) |  | Message Time
-    driver.FindElement(By.CssSelector("tr:nth-child(3) > td:nth-child(2)")).Click();
-    // 5 | click | css=tr:nth-child(3) > td:nth-child(3) |  | Message User
-    driver.FindElement(By.CssSelector("tr:nth-child(3) > td:nth-child(3)")).Click();
-    // 6 | click | css=tr:nth-child(3) > td:nth-child(4) |  | Message Text
-    driver.FindElement(By.CssSelector("tr:nth-child(3) > td:nth-child(4)")).Click();
-  }
+public class SuiteTests : IDisposable
+{
+    public IWebDriver driver { get; private set; }
+    public IDictionary<String, Object> vars { get; private set; }
+    public IJavaScriptExecutor js { get; private set; }
+    public SuiteTests()
+    {
+        //driver = new FirefoxDriver(FirefoxDriverService.CreateDefaultService("C:\\tools\\selenium", "geckodriver.exe"));
+        driver = new ChromeDriver(ChromeDriverService.CreateDefaultService("C:\\tools\\selenium", "chromedriver.exe"));
+        js = (IJavaScriptExecutor)driver;
+        vars = new Dictionary<String, Object>();
+    }
+    public void Dispose()
+    {
+        driver.Quit();
+    }
+    [Fact]
+    public void When_a_new_user_joins()
+    {
+        //string host = System.Environment.GetEnvironmentVariable("test_host", EnvironmentVariableTarget.Process);
+        //int port = Convert.ToInt32(System.Environment.GetEnvironmentVariable("test_port", EnvironmentVariableTarget.Process));
+        string host = "localhost";
+        
+        const string mainPage = "default.htm";
+        int port = 80;
+
+        UriBuilder builder = new UriBuilder("http", host, port);
+        builder.Path = mainPage;
+        var testPath = builder.Uri;
+        
+        // Act
+        driver.Navigate().GoToUrl(testPath);
+
+        // Assert time are date are nowish
+        var date = driver.FindElement(By.CssSelector("body")).Text;
+        var time = driver.FindElement(By.CssSelector("body")).Text;
+        var dateTime = Convert.ToDateTime(date + " " + time);
+        Assert.True((DateTime.Now - dateTime).TotalSeconds < 5);
+
+        // Assert message time is nowish
+        var messageTime = Convert.ToDateTime(driver.FindElement(By.CssSelector("tr:nth-child(3) > td:nth-child(2)")).Text);
+        Assert.True((DateTime.Now - messageTime).TotalSeconds < 5);
+
+        // Assert User is guest
+        Assert.Equal(driver.FindElement(By.CssSelector("tr:nth-child(3) > td:nth-child(3)")).Text, "Guest"); 
+
+        // Assert Message is that a guest has joined 
+        var messageText = driver.FindElement(By.CssSelector("tr:nth-child(3) > td:nth-child(4)")).Text;
+        Assert.StartsWith(messageText, "	New visitor from I.P.");
+    }
 }
