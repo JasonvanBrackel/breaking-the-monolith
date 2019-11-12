@@ -14,15 +14,8 @@ This document will eventually become the documentation root of this project.  Fo
 - Add Nuget Package for Selenium WebDriver
 - Add Nuget Package for Selenium WebDriver support
 - Note that we have no way to identify the clock and date
-- Add Project Empty ASP.NET Core (MoreHuman.Software.Chat.Ui)
-- Add Nuget Packages
-  - Microsoft.AspNetCore.Http
-  - Microsoft.AspNetCore.Hosting.Abstractions
-  - Microsoft.AspNetCore.Routing.Abstractions
-- Read [Migrate HTTP handlers and modules to ASP.NET Core middleware](https://docs.microsoft.com/en-us/aspnet/core/migration/http-modules?view=aspnetcore-3.0) - somewhat helpful
-- Read [IIS modules with ASP.NET Core](https://docs.microsoft.com/en-us/aspnet/core/host-and-deploy/iis/modules?view=aspnetcore-3.0) - Very Helful
-- Read [Static files in ASP.NET Core](https://docs.microsoft.com/en-us/aspnet/core/fundamentals/static-files?view=aspnetcore-3.0) - Very Helpful
-- Modify Startup.cs to use static files
+- Add folder to directory structure (MoreHuman.Software.Chat.Ui)
+- Add IIS application for site
 ```
 ```
 - Create a new application in IIS with .NET Framework
@@ -43,6 +36,7 @@ This document will eventually become the documentation root of this project.  Fo
     - `css=tr:nth-child(3) > td:nth-child(2)`
     - `css=tr:nth-child(3) > td:nth-child(3)`
     - `css=tr:nth-child(3) > td:nth-child(2)`
+  - Add ids to time and date
     
 
 ## Thoughts on Breaking this Monolith
