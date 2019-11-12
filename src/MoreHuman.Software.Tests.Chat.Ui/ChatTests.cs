@@ -41,7 +41,7 @@ namespace MoreHuman.Software.Tests.Chat.Ui
             driver.Navigate().GoToUrl(testPath);
 
             // Wait for stuff to reload
-            Thread.Sleep(TimeSpan.FromSeconds(5));
+            Thread.Sleep(TimeSpan.FromSeconds(7));
 
             // Assert time are date are nowish
             driver.SwitchTo().Frame("chat_top");
@@ -88,15 +88,11 @@ namespace MoreHuman.Software.Tests.Chat.Ui
             driver.FindElement(By.Name("username")).SendKeys(expectedUsername);
             driver.FindElement(By.Name("message")).SendKeys(expectedMessage);
             driver.FindElement(By.CssSelector("input:nth-child(2)")).Click();
-            Thread.Sleep(TimeSpan.FromSeconds(5));
+            Thread.Sleep(TimeSpan.FromSeconds(7));
 
             driver.SwitchTo().ParentFrame();
             driver.SwitchTo().Frame("chat_top");
-            var date = driver.FindElement(By.Id("date")).Text;
-            var time = driver.FindElement(By.Id("time")).Text;
-            var dateTime = Convert.ToDateTime(date + " " + time);
-            Assert.True((DateTime.Now - dateTime).TotalSeconds < 5);
-
+            
             // Assert message time is nowish.
             var messageTime = Convert.ToDateTime(DateTime.Now.ToShortDateString() + " " + driver.FindElement(By.CssSelector("tr:nth-child(3) > td:nth-child(2)")).Text);
             Assert.True((DateTime.Now - messageTime).TotalSeconds < 60);
