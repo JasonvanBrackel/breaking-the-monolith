@@ -17,18 +17,16 @@ This document will eventually become the documentation root of this project.  Fo
 - Add folder to directory structure (MoreHuman.Software.Chat.Ui)
 - Add IIS application for site
 - Downloaded and copied the geckodriver
-```
-```
-- Create a new application in IIS with .NET Framework
-
-## Steps to take
-
-- Unit tests for the UI
-  - We can cover most every function in a small application
+- Downloaded and copied the firefoxdriver (Not Working)
+- Written Unit Test for When the application runs
+- Written Unit Test for When a new user joins
+- Written Unit Test for When a message is sent
   - We can't cover this in large applications, test as you go
     - [See Working Effectively with Legacy Code](https://www.amazon.com/Working-Effectively-Legacy-Michael-Feathers/dp/0131177052)
 
-### Test 1: When a new uer joins
+
+
+### Test 1: When a new user joins
 
 - Double click on each element
 - Changes
@@ -41,7 +39,10 @@ This document will eventually become the documentation root of this project.  Fo
   - Add sleeps
   - deal with frameset
 
-### Test 2: 
+### Test 2: When a message is set
+- Input Username
+- Input Message
+- Click Send
     
 
 ## Thoughts on Breaking this Monolith
