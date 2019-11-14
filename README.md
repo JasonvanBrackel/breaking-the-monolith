@@ -23,7 +23,8 @@ This document will eventually become the documentation root of this project.  Fo
 - Written Unit Test for When a message is sent
   - We can't cover this in large applications, test as you go
     - [See Working Effectively with Legacy Code](https://www.amazon.com/Working-Effectively-Legacy-Michael-Feathers/dp/0131177052)
-
+- Create an API
+- Create a repository to talk to the existing chat app.
 
 
 ### Test 1: When a new user joins
