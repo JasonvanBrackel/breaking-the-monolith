@@ -1,17 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
-using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 
 namespace MoreHumanSoftware.Chat.API.Repositories
 {
     public class ChatAppBackedMessageRepository : IMessageRepository
     {
-
         public ChatAppBackedMessageRepository()
         {
         }
@@ -25,6 +21,7 @@ namespace MoreHumanSoftware.Chat.API.Repositories
             var document = new HtmlAgilityPack.HtmlDocument();
             document.LoadHtml(page);
 
+            // Grab Rows from the Chat Table
             var rows = document.DocumentNode.SelectNodes("//table/tr");
 
             foreach (var row in rows)
@@ -33,10 +30,11 @@ namespace MoreHumanSoftware.Chat.API.Repositories
                 {
                     var hasTime = timeRegex.IsMatch(row.ChildNodes[1].InnerText);
 
-
+                    // Only Rows with a timestamp have data.
                     if (hasTime)
                     {
                         var columns = row.SelectNodes("td");
+                        // Create the Message objects, Trim spaces.
                         var message = new Message()
                         {
                             Timestamp = (Convert.ToDateTime(DateTime.Now.ToShortDateString() + " " +
@@ -54,6 +52,7 @@ namespace MoreHumanSoftware.Chat.API.Repositories
 
         public void StoreMessage(ReceivedMessage message)
         {
+            // Send a message to the chat application
             var client = new HttpClient();
 
             IList<KeyValuePair<string, string>> formItems = new List<KeyValuePair<string, string>>();
