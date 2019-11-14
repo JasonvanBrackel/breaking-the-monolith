@@ -14,7 +14,6 @@ namespace MoreHuman.Software.Tests.Chat.API
         [Fact]
         public void ReceiveMessage_ShouldStoreTheMessage()
         {
-
             // Arrange
             var messageRepo = A.Fake<IMessageRepository>();
             var fakeMessage = A.Fake<ReceivedMessage>();
@@ -37,7 +36,7 @@ namespace MoreHuman.Software.Tests.Chat.API
             var messages = A.Fake<IEnumerable<Message>>();
             A.CallTo(() => messageRepo.List()).Returns(messages);
             var controller = new MessagesController(messageRepo);
-            
+
             // Act
             controller.GetMessages();
 

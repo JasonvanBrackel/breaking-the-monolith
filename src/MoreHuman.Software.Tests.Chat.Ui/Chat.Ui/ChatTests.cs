@@ -14,13 +14,16 @@ namespace MoreHuman.Software.Tests.Chat.Ui
         public IWebDriver driver { get; private set; }
         public IDictionary<String, Object> vars { get; private set; }
         public IJavaScriptExecutor js { get; private set; }
+
         public ChatTests()
         {
             //driver = new FirefoxDriver(FirefoxDriverService.CreateDefaultService("C:\\tools\\selenium", "geckodriver.exe"));
-            driver = new ChromeDriver(ChromeDriverService.CreateDefaultService("C:\\tools\\selenium", "chromedriver.exe"));
-            js = (IJavaScriptExecutor)driver;
+            driver = new ChromeDriver(
+                ChromeDriverService.CreateDefaultService("C:\\tools\\selenium", "chromedriver.exe"));
+            js = (IJavaScriptExecutor) driver;
             vars = new Dictionary<String, Object>();
         }
+
         public void Dispose()
         {
             driver.Quit();
@@ -51,6 +54,7 @@ namespace MoreHuman.Software.Tests.Chat.Ui
             var dateTime = Convert.ToDateTime(date + " " + time);
             Assert.True((DateTime.Now - dateTime).TotalSeconds < 5);
         }
+
         [Fact]
         public void When_a_new_user_joins()
         {
@@ -62,7 +66,7 @@ namespace MoreHuman.Software.Tests.Chat.Ui
             UriBuilder builder = new UriBuilder("http", host, port);
             builder.Path = mainPage;
             var testPath = builder.Uri;
-        
+
             // Act
             driver.Navigate().GoToUrl(testPath);
 
@@ -72,12 +76,14 @@ namespace MoreHuman.Software.Tests.Chat.Ui
             driver.SwitchTo().Frame("chat_top");
 
             // Assert message time is nowish.
-            var messageTime = Convert.ToDateTime(DateTime.Now.ToShortDateString() + " " + driver.FindElement(By.CssSelector("tr:nth-child(3) > td:nth-child(2)")).Text);
+            var messageTime = Convert.ToDateTime(DateTime.Now.ToShortDateString() + " " +
+                                                 driver.FindElement(By.CssSelector("tr:nth-child(3) > td:nth-child(2)"))
+                                                     .Text);
             Assert.True((DateTime.Now - messageTime).TotalSeconds < 60);
-            
+
             // Assert User is guest
             var messageUser = driver.FindElement(By.CssSelector("tr:nth-child(3) > td:nth-child(3)")).Text.Trim();
-            Assert.Equal("Guest", messageUser); 
+            Assert.Equal("Guest", messageUser);
 
             // Assert Message is that a guest has joined 
             var messageText = driver.FindElement(By.CssSelector("tr:nth-child(3) > td:nth-child(4)")).Text;
@@ -114,9 +120,11 @@ namespace MoreHuman.Software.Tests.Chat.Ui
 
             driver.SwitchTo().ParentFrame();
             driver.SwitchTo().Frame("chat_top");
-            
+
             // Assert message time is nowish.
-            var messageTime = Convert.ToDateTime(DateTime.Now.ToShortDateString() + " " + driver.FindElement(By.CssSelector("tr:nth-child(3) > td:nth-child(2)")).Text);
+            var messageTime = Convert.ToDateTime(DateTime.Now.ToShortDateString() + " " +
+                                                 driver.FindElement(By.CssSelector("tr:nth-child(3) > td:nth-child(2)"))
+                                                     .Text);
             Assert.True((DateTime.Now - messageTime).TotalSeconds < 60);
 
             // Assert User is the username
@@ -127,6 +135,5 @@ namespace MoreHuman.Software.Tests.Chat.Ui
             var messageText = driver.FindElement(By.CssSelector("tr:nth-child(3) > td:nth-child(4)")).Text;
             Assert.StartsWith(expectedMessage, messageText);
         }
-
     }
 }
