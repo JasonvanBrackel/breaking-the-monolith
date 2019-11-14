@@ -31,7 +31,8 @@ namespace MoreHuman.Software.Tests.Chat.API
             // Assert
             Thread.Sleep(TimeSpan.FromSeconds(7));
             var messages = repo.List();
-            Assert.Contains(messages, message1 => message1.Username.Equals(expectedUsername) && message1.Text.Equals(expectedMessage));
+            Assert.Contains(messages,
+                message1 => message1.Username.Equals(expectedUsername) && message1.Text.Equals(expectedMessage));
         }
 
         [Fact]
@@ -43,7 +44,5 @@ namespace MoreHuman.Software.Tests.Chat.API
 
             Assert.IsAssignableFrom<IEnumerable<Message>>(results);
         }
-
-
     }
 }
