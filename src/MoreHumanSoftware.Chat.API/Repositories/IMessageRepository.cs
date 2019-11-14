@@ -8,6 +8,6 @@ namespace MoreHumanSoftware.Chat.API.Repositories
     public interface IMessageRepository
     {
         IEnumerable<Message> List();
-        void StoreMessage(Message message);
+        void StoreMessage(ReceivedMessage message);
     }
 }

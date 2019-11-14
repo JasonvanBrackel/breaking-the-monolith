@@ -16,10 +16,9 @@ namespace MoreHumanSoftware.Chat.API.Controllers
         private readonly IMessageFactory _factory;
 
         // GET: api/Messages
-        public MessagesController(IMessageRepository messages, IMessageFactory factory)
+        public MessagesController(IMessageRepository messages)
         {
             _messages = messages;
-            _factory = factory;
         }
 
         [HttpGet]
@@ -32,8 +31,7 @@ namespace MoreHumanSoftware.Chat.API.Controllers
         [HttpPost]
         public void ReceiveMessage([FromBody] ReceivedMessage message)
         {
-            var storedMessage = _factory.Create(message);
-            _messages.StoreMessage(storedMessage);
+            _messages.StoreMessage(message);
         }
     }
 }
